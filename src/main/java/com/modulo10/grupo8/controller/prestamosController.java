@@ -39,7 +39,7 @@ public class prestamosController {
 	}
 	@GetMapping("/prueba")
 	public String getPrueba() {
-		return "hola esto es una prueba";
+		return "hola esto es una prueba!";
 	}
 	@GetMapping("/prestamo/{id}")
 	public ResponseEntity<prestamos> getUsuarioServicioById(@PathVariable("id") String id) throws RecordNotFoundException {
