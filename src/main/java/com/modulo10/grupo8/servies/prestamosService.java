@@ -34,9 +34,14 @@ public class prestamosService{
 			throw new RecordNotFoundException("Record does not exist for the given Id");
 		}
 	}
-	public prestamos createPrestamo(prestamos prestamos){
+	public prestamos createPrestamo(prestamos prestamos)throws RecordNotFoundException{
+		Optional<prestamos> prestamosTemp = repository.findByIdPrestamo(prestamos.getIdPrestamo());
 		
-        return repository.save(prestamos);
+		if(prestamosTemp.isPresent()){
+			throw new RecordNotFoundException("Id del prestamo repetido");
+		}else {
+			return repository.save(prestamos);
+		}
 	}
 	
 	public prestamos updatePrestamo(prestamos prestamos) throws RecordNotFoundException {
@@ -44,9 +49,8 @@ public class prestamosService{
 		
 		if(prestamosTemp.isPresent()){
 			return repository.save(prestamos);
-	       
 		} else {
-			throw new RecordNotFoundException("Record does not exist for the given Id");
+			throw new RecordNotFoundException("Prestamo no encontrado");
 		}
 	}
 	public void deletePrestamoById(String id) throws RecordNotFoundException{

@@ -48,7 +48,7 @@ public class prestamosController {
 	}
 
 	@PostMapping("/prestamo/create")
-	public ResponseEntity<prestamos> createPrestamo(@RequestParam("usuarioServicio") String s) throws JsonMappingException, JsonProcessingException{
+	public ResponseEntity<prestamos> createPrestamo(@RequestParam("usuarioServicio") String s) throws JsonMappingException, JsonProcessingException, RecordNotFoundException{
 		
 		ObjectMapper om = new ObjectMapper();
 		prestamos usuarioServicio=om.readValue(s, prestamos[].class)[0];
