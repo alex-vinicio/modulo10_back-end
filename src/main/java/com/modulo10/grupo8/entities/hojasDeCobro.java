@@ -5,35 +5,52 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "hojaDeCobro")
 public class hojasDeCobro {
-	 @Id
+
 	  public String idHojaDeCobro;
 	 
-	  public String ciUsuario;
+	  public String fkCiUsuario;
 	  public String cantidadApagar;
 	  public String sector;
 	  public String tipoDePago;
 	  public String fechaTransaccion;
 	  
+	public String getIdHojaDeCobro() {
+		return idHojaDeCobro;
+	}
+	public void setIdHojaDeCobro(String idHojaDeCobro) {
+		this.idHojaDeCobro = idHojaDeCobro;
+	}
+	public String getCiUsuario() {
+		return fkCiUsuario;
+	}
+	public void setCiUsuario(String ciUsuario) {
+		this.fkCiUsuario = ciUsuario;
+	}
+	public String getCantidadApagar() {
+		return cantidadApagar;
+	}
+	public void setCantidadApagar(String cantidadApagar) {
+		this.cantidadApagar = cantidadApagar;
+	}
+	public String getSector() {
+		return sector;
+	}
+	public void setSector(String sector) {
+		this.sector = sector;
+	}
+	public String getTipoDePago() {
+		return tipoDePago;
+	}
+	public void setTipoDePago(String tipoDePago) {
+		this.tipoDePago = tipoDePago;
+	}
+	public String getFechaTransaccion() {
+		return fechaTransaccion;
+	}
+	public void setFechaTransaccion(String fechaTransaccion) {
+		this.fechaTransaccion = fechaTransaccion;
+	}
 	  
-	  public hojasDeCobro() {}
-
-	  public hojasDeCobro(String idHojaDeCobro, String ciUsuario,String cantidadApagar,String sector,String tipoDePago,String fechaTransaccion) {
-	    this.idHojaDeCobro = idHojaDeCobro;
-	    this.ciUsuario = ciUsuario;
-	    this.cantidadApagar = cantidadApagar;
-	    this.sector = sector;
-	    this.tipoDePago = tipoDePago;
-	    this.fechaTransaccion = fechaTransaccion;
-	    
-	    
-	  }
-
-//	  @Override
-//	  public String toString() {
-//	    return String.format(
-//	        "hojaDeCobro[idHojaDeCobro=%s, ciUsuario='%s', cantidadApagara='%s',sector='%s',tipoDePago='%s',fechaTransaccion='%s']",
-//	        idHojaDeCobro, ciUsuario, cantidadApagar,sector,tipoDePago,fechaTransaccion);
-//	  }
-	
+	  
 
 }

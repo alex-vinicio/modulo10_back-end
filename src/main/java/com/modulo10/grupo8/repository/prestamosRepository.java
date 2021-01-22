@@ -13,9 +13,9 @@ import com.modulo10.grupo8.entities.prestamos;
 @Repository //RestResource(collectionResourceRel = "prestamoEmpleado", path = "prestamoEmpleado")
 public interface prestamosRepository extends MongoRepository<prestamos, String> {
 
-  public Optional<prestamos> findByIdPrestamo(@Param("idPrestamosEmpleados") String id);
-  public prestamos findByMontoPrestamoEmpleado(@Param("montoPrestamo") float montoPrestamoEmpleado);
-  
-  @Transactional
-  void deleteByIdPrestamo(@Param("idPrestamosEmpleados") String id);
+	public Optional<prestamos> findByIdPrestamosEmpleados(@Param("idPrestamosEmpleados") String idPrestamosEmpleados);
+	  public prestamos findByMontoPrestamo(@Param("montoPrestamo") float montoPrestamoEmpleado);
+	  
+	  @Transactional
+	  void deleteByIdPrestamosEmpleados(@Param("idPrestamosEmpleados") String id);
 }

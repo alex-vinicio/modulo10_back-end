@@ -42,13 +42,13 @@ public class prestamosController {
 		return "hola esto es una prueba!";
 	}
 	@GetMapping("/prestamo/{id}")
-	public ResponseEntity<prestamos> getUsuarioServicioById(@PathVariable("id") String id) throws RecordNotFoundException {
+	public ResponseEntity<prestamos> getPrestamoById(@PathVariable("id") String id) throws RecordNotFoundException {
 		prestamos entity = servicePrestamos.findById(id);
 		return new ResponseEntity<prestamos>(entity, new HttpHeaders(), HttpStatus.OK);
 	}
 
 	@PostMapping("/prestamo/create")
-	public ResponseEntity<prestamos> createPrestamo(@RequestParam("usuarioServicio") String s) throws JsonMappingException, JsonProcessingException, RecordNotFoundException{
+	public ResponseEntity<prestamos> createPrestamo(@RequestParam("prestamos") String s) throws JsonMappingException, JsonProcessingException, RecordNotFoundException{
 		
 		ObjectMapper om = new ObjectMapper();
 		prestamos usuarioServicio=om.readValue(s, prestamos[].class)[0];
@@ -58,7 +58,7 @@ public class prestamosController {
 	}
 
 	@PutMapping("/prestamo/update")
-	public ResponseEntity<prestamos> updatePrestamo(@RequestParam("usuarioServicio") String s) throws RecordNotFoundException, JsonMappingException, JsonProcessingException{
+	public ResponseEntity<prestamos> updatePrestamo(@RequestParam("prestamoEmpleado") String s) throws RecordNotFoundException, JsonMappingException, JsonProcessingException{
 		
 		ObjectMapper om = new ObjectMapper();
 		prestamos prestamosService=om.readValue(s, prestamos[].class)[0];
@@ -71,5 +71,18 @@ public class prestamosController {
 	public HttpStatus deletePrestamoById(@PathVariable("id") String id) throws RecordNotFoundException {
 		servicePrestamos.deletePrestamoById(id);
 		return HttpStatus.OK;
+	}
+	
+	
+	@PutMapping("/prestamo/aprobacion/{id}/{aporbacion}")
+	public ResponseEntity<Boolean> aprobracionPrestamo(@PathVariable("id") String id, @PathVariable("aprobacion") Boolean check) throws RecordNotFoundException, JsonMappingException, JsonProcessingException{
+		
+		prestamos entity = servicePrestamos.findById(id);
+		if(entity == null){
+			throw new RecordNotFoundException("Id del prestamo repetido");
+		}else {
+			Boolean value = servicePrestamos.aprobacionPrestamo(entity,check);
+			return new ResponseEntity<Boolean>(value, new HttpHeaders(), HttpStatus.OK);
+		}
 	}
 }				

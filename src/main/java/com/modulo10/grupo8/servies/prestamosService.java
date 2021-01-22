@@ -27,15 +27,15 @@ public class prestamosService{
 		}
 	}
 	public prestamos findById(String id) throws RecordNotFoundException{
-		Optional<prestamos> usuarioServicio = repository.findByIdPrestamo(id);
+		Optional<prestamos> usuarioServicio = repository.findByIdPrestamosEmpleados(id);
 		if(usuarioServicio.isPresent()) {
 			return usuarioServicio.get();
 		} else {
-			throw new RecordNotFoundException("Record does not exist for the given Id");
+			throw new RecordNotFoundException("Prestamo no encontrado");
 		}
 	}
 	public prestamos createPrestamo(prestamos prestamos)throws RecordNotFoundException{
-		Optional<prestamos> prestamosTemp = repository.findByIdPrestamo(prestamos.getIdPrestamo());
+		Optional<prestamos> prestamosTemp = repository.findByIdPrestamosEmpleados(prestamos.getIdPrestamosEmpleados());
 		
 		if(prestamosTemp.isPresent()){
 			throw new RecordNotFoundException("Id del prestamo repetido");
@@ -45,7 +45,7 @@ public class prestamosService{
 	}
 	
 	public prestamos updatePrestamo(prestamos prestamos) throws RecordNotFoundException {
-		Optional<prestamos> prestamosTemp = repository.findByIdPrestamo(prestamos.getIdPrestamo());
+		Optional<prestamos> prestamosTemp = repository.findByIdPrestamosEmpleados(prestamos.getIdPrestamosEmpleados());
 		
 		if(prestamosTemp.isPresent()){
 			return repository.save(prestamos);
@@ -54,9 +54,9 @@ public class prestamosService{
 		}
 	}
 	public void deletePrestamoById(String id) throws RecordNotFoundException{
-		Optional<prestamos> prestamos = repository.findByIdPrestamo(id);
+		Optional<prestamos> prestamos = repository.findByIdPrestamosEmpleados(id);
 		if(prestamos.isPresent()) {
-			repository.deleteByIdPrestamo(id);
+			repository.deleteByIdPrestamosEmpleados(id);
 		} else {
 			throw new RecordNotFoundException("Record does not exist for the given Id");
 		}
@@ -64,6 +64,14 @@ public class prestamosService{
 	
 	public prestamos findByMontoPrestamoEmpleado(float valor){
 		
-        return repository.findByMontoPrestamoEmpleado(valor);
+        return repository.findByMontoPrestamo(valor);
+	}
+	
+	public Boolean aprobacionPrestamo(prestamos prestamo,Boolean check) {
+		
+		prestamo.setEstadoPrestamo(check);
+		repository.save(prestamo);
+		
+		return true;
 	}
 }

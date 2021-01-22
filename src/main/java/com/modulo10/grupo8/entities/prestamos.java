@@ -5,8 +5,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document("prestamoEmpleado")
 public class prestamos {
-
-	@Id public String idPrestamosEmpleados;
+	
+	public String idPrestamosEmpleados;
   
   public String fkCiEmpleado;
   public String fkEmpleadoPrestamo;
@@ -14,60 +14,57 @@ public class prestamos {
   public String fechaFinPrestamo;
   public Boolean estadoPrestamo;
   public float montoPrestamo;
+  public int mesesPago;
   
-  
-  public String getIdPrestamo() {
+	
+	public String getIdPrestamosEmpleados() {
 		return idPrestamosEmpleados;
-  }
-	
-  public void setIdPrestamo(String idPrestamosEmpleados) {
+	}
+	public void setIdPrestamosEmpleados(String idPrestamosEmpleados) {
 		this.idPrestamosEmpleados = idPrestamosEmpleados;
-  }
-  
-  public String getCiUsuario() {
+	}
+	public String getFkCiEmpleado() {
 		return fkCiEmpleado;
-  }
-	
-  public void setCiUsuario(String fkCiEmpleado) {
+	}
+	public void setFkCiEmpleado(String fkCiEmpleado) {
 		this.fkCiEmpleado = fkCiEmpleado;
-  }
-  
-  public String getCiPrestamoEmpleado() {
+	}
+	public String getFkEmpleadoPrestamo() {
 		return fkEmpleadoPrestamo;
-  } 
-	 
-  public void setCiPrestamoEmpleado(String fkEmpleadoPrestamo) {
+	}
+	public void setFkEmpleadoPrestamo(String fkEmpleadoPrestamo) {
 		this.fkEmpleadoPrestamo = fkEmpleadoPrestamo;
-  }
-  
-  public String getFechaInicioPrestamoEmpleado() {
+	}
+	public String getFechaInicioPrestamo() {
 		return fechaInicioPrestamo;
-  }
-	
-  public void setFechaInicioPrestamoEmpleado(String fechaInicioPrestamo) {
+	}
+	public void setFechaInicioPrestamo(String fechaInicioPrestamo) {
 		this.fechaInicioPrestamo = fechaInicioPrestamo;
-  }
-  
-  public String getFechaFinPrestamoEmpleado() {
+	}
+	public String getFechaFinPrestamo() {
 		return fechaFinPrestamo;
-  }
-	
-  public void setFechaFinPrestamoEmpleado(String fechaFinPrestamo) {
+	}
+	public void setFechaFinPrestamo(String fechaFinPrestamo) {
 		this.fechaFinPrestamo = fechaFinPrestamo;
-  }
-
-  public float getMontoPrestamoEmpleado() {
-		return montoPrestamo;
-  }
-	
-  public void setMontoPrestamoEmpleado(float montoPrestamo) {
-		this.montoPrestamo = montoPrestamo;
-  }
-  public Boolean getEstadoPrestamo() {
+	}
+	public Boolean getEstadoPrestamo() {
 		return estadoPrestamo;
-  }
-	
-  public void setEstadoPrestamo(Boolean estadoPrestamo) {
+	}
+	public void setEstadoPrestamo(Boolean estadoPrestamo) {
 		this.estadoPrestamo = estadoPrestamo;
-  }
+	}
+	public float getMontoPrestamo() {
+		return montoPrestamo;
+	}
+	public void setMontoPrestamo(float montoPrestamo) {
+		this.montoPrestamo = montoPrestamo;
+	}
+	public int getMesesPago() {
+		return mesesPago;
+	}
+	public void setMesesPago(int mesesPago) {
+		this.mesesPago = mesesPago;
+	}
+	  
+ 
 }

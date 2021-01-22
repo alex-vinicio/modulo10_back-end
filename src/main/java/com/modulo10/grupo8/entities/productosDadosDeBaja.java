@@ -6,29 +6,37 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "productosDadosDeBaja")
 public class productosDadosDeBaja {
 
-	  @Id
+
 	  public String idProductoDadoDeBaja;
 	  
-	  public String ciUsuario;
+	  public String fkCiUsuario;
 	  public String nombreProductoDadoDeBaja;
 	  public String fechaProductoDadoDeBaja;
+	  
+	public String getIdProductoDadoDeBaja() {
+		return idProductoDadoDeBaja;
+	}
+	public void setIdProductoDadoDeBaja(String idProductoDadoDeBaja) {
+		this.idProductoDadoDeBaja = idProductoDadoDeBaja;
+	}
+	public String getCiUsuario() {
+		return fkCiUsuario;
+	}
+	public void setCiUsuario(String ciUsuario) {
+		this.fkCiUsuario = ciUsuario;
+	}
+	public String getNombreProductoDadoDeBaja() {
+		return nombreProductoDadoDeBaja;
+	}
+	public void setNombreProductoDadoDeBaja(String nombreProductoDadoDeBaja) {
+		this.nombreProductoDadoDeBaja = nombreProductoDadoDeBaja;
+	}
+	public String getFechaProductoDadoDeBaja() {
+		return fechaProductoDadoDeBaja;
+	}
+	public void setFechaProductoDadoDeBaja(String fechaProductoDadoDeBaja) {
+		this.fechaProductoDadoDeBaja = fechaProductoDadoDeBaja;
+	}
 	 
 	  
-	  
-	  public productosDadosDeBaja() {}
-
-	  public productosDadosDeBaja(String idProductoDadoDeBaja, String ciUsuario,String nombreProductoDadoDeBaja, String fechaProductoDadoDeBaja) {
-	    this.idProductoDadoDeBaja = idProductoDadoDeBaja;
-	    this.ciUsuario = ciUsuario;
-	    this.nombreProductoDadoDeBaja = nombreProductoDadoDeBaja;
-	    this.fechaProductoDadoDeBaja = fechaProductoDadoDeBaja;
-	    
-	  }
-
-//	  @Override
-//	  public String toString() {
-//	    return String.format(
-//	        "productosDadosDeBaja[idProductoDadoDeBaja=%s, ciUsuario='%s', nombreProductoDadoDeBaja='%s',fechaProductoDadoDeBaja='%s']",
-//	        idProductoDadoDeBaja, ciUsuario,  nombreProductoDadoDeBaja,fechaProductoDadoDeBaja);
-//	  }
 }
