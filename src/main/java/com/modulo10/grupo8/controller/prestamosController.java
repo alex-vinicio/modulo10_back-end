@@ -81,8 +81,17 @@ public class prestamosController {
 		if(entity == null){
 			throw new RecordNotFoundException("Id del prestamo repetido");
 		}else {
+			if(entity.getEstadoPrestamo() == true) {
 			Boolean value = servicePrestamos.aprobacionPrestamo(entity,check);
 			return new ResponseEntity<Boolean>(value, new HttpHeaders(), HttpStatus.OK);
+			}else {
+				throw new RecordNotFoundException("Cancele el prestamo acual");
+			}
 		}
+	}
+	@GetMapping("/prestamosPorUsuario/{id}")
+	public ResponseEntity<List<prestamos>> getForUser(@PathVariable("id") String id) {
+		List<prestamos> list = servicePrestamos.findByUsuario(id);
+		return new ResponseEntity<List<prestamos>>(list, new HttpHeaders(), HttpStatus.OK);
 	}
 }				

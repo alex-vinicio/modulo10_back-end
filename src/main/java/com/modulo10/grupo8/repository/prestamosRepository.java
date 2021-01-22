@@ -1,5 +1,6 @@
 	package com.modulo10.grupo8.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -15,6 +16,8 @@ public interface prestamosRepository extends MongoRepository<prestamos, String> 
 
 	public Optional<prestamos> findByIdPrestamosEmpleados(@Param("idPrestamosEmpleados") String idPrestamosEmpleados);
 	  public prestamos findByMontoPrestamo(@Param("montoPrestamo") float montoPrestamoEmpleado);
+	  
+	  public List<prestamos> findByFkEmpleadoPrestamo(@Param("FkEmpleadoPrestamo") String idUP);
 	  
 	  @Transactional
 	  void deleteByIdPrestamosEmpleados(@Param("idPrestamosEmpleados") String id);

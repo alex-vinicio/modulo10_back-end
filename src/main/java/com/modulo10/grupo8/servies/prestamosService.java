@@ -17,6 +17,9 @@ public class prestamosService{
 	
 	 @Autowired
 	 prestamosRepository repository;
+	 
+//	 @Autowired
+//	 usuarioRepository repositoryUser;
 	
 	public List<prestamos> getAll(){
 		List<prestamos> prestamosList = repository.findAll();
@@ -37,16 +40,35 @@ public class prestamosService{
 	public prestamos createPrestamo(prestamos prestamos)throws RecordNotFoundException{
 		Optional<prestamos> prestamosTemp = repository.findByIdPrestamosEmpleados(prestamos.getIdPrestamosEmpleados());
 		
+		//usuario userEmpleado = repositoryUser.findById(idUE)
+		//usuario userRecursosHumanos = repositoryUser.findById(idURH)
+//		if(userEmpleado.getTipoUsuario() == 2 || userRecursosHumanos.getTipoUsuario() == 1 || prestamos.get) {
+//			
+//		}else {
+//			throw new RecordNotFoundException("usuario no valido");
+//		}
+//		
 		if(prestamosTemp.isPresent()){
 			throw new RecordNotFoundException("Id del prestamo repetido");
 		}else {
-			return repository.save(prestamos);
+			if(prestamos.getMontoPrestamo() <= 400 /*userEmpleado.getValorSueldo() */) {
+				return repository.save(prestamos);
+			}else {
+				throw new RecordNotFoundException("Monto excedido a su sueldo!");
+			}
+			
 		}
 	}
 	
 	public prestamos updatePrestamo(prestamos prestamos) throws RecordNotFoundException {
 		Optional<prestamos> prestamosTemp = repository.findByIdPrestamosEmpleados(prestamos.getIdPrestamosEmpleados());
-		
+		//usuario userEmpleado = repositoryUser.findById(idUE)
+		//usuario userRecursosHumanos = repositoryUser.findById(idURH)
+//		if(userEmpleado.getTipoUsuario() == 2) {
+//					
+//		}else {
+//			throw new RecordNotFoundException("usuario no valido");
+//		}
 		if(prestamosTemp.isPresent()){
 			return repository.save(prestamos);
 		} else {
@@ -61,6 +83,11 @@ public class prestamosService{
 			throw new RecordNotFoundException("Record does not exist for the given Id");
 		}
 	}	
+	
+	public List<prestamos> findByUsuario(String idU){
+		
+        return repository.findByFkEmpleadoPrestamo(idU);
+	}
 	
 	public prestamos findByMontoPrestamoEmpleado(float valor){
 		
