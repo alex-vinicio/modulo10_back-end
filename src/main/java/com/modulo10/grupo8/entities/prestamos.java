@@ -1,9 +1,7 @@
 package com.modulo10.grupo8.entities;
 
 import java.sql.Date;
-import java.time.LocalDate;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document("prestamoEmpleado")
@@ -13,8 +11,8 @@ public class prestamos {
   
   public String fkEmpleadoPrestamo;
   public String fkCiEmpleadoAdmin;
-  public Date fechaInicioPrestamo;
-  public LocalDate fechaFinPrestamo;
+  public String fechaInicioPrestamo;
+  public String fechaFinPrestamo;
   public Boolean estadoPrestamo;
   public float montoPrestamo;
   public int mesesPago;
@@ -46,17 +44,18 @@ public class prestamos {
 	public void setFkCiEmpleadoAdmin(String fkCiEmpleadoAdmin) {
 		this.fkCiEmpleadoAdmin = fkCiEmpleadoAdmin;
 	}
-	public Date getFechaInicioPrestamo() {
+
+	public String getFechaInicioPrestamo() {
 		return fechaInicioPrestamo;
 	}
-	public void setFechaInicioPrestamo(Date fechaInicioPrestamo) {
+	public void setFechaInicioPrestamo(String fechaInicioPrestamo) {
 		this.fechaInicioPrestamo = fechaInicioPrestamo;
 	}
-	public LocalDate getFechaFinPrestamo() {
+	public String getFechaFinPrestamo() {
 		return fechaFinPrestamo;
 	}
-	public void setFechaFinPrestamo(LocalDate localDate) {
-		this.fechaFinPrestamo = localDate;
+	public void setFechaFinPrestamo(String fechaFinPrestamo) {
+		this.fechaFinPrestamo = fechaFinPrestamo;
 	}
 	public Boolean getEstadoPrestamo() {
 		return estadoPrestamo;

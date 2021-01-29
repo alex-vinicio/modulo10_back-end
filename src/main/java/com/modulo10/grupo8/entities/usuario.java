@@ -2,12 +2,13 @@ package com.modulo10.grupo8.entities;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document("prestamoEmpleado")
+@Document("usuario")
 public class usuario {
 	
 	public String idUsuario;
 	public String nombreUsuario;
 	public float sueldo;
+	public int rol;
 	
 	public float getSueldo() {
 		return sueldo;
@@ -15,7 +16,6 @@ public class usuario {
 	public void setSueldo(float sueldo) {
 		this.sueldo = sueldo;
 	}
-	public int rol;
 	
 	public String getIdUsuario() {
 		return idUsuario;

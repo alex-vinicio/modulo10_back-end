@@ -45,31 +45,48 @@ public class prestamosService{
 			throw new RecordNotFoundException("Prestamo no encontrado");
 		}
 	}
-	public prestamos createPrestamo(prestamos prestamos, String idU)throws RecordNotFoundException{
+	public prestamos createPrestamo(prestamos prestamos)throws RecordNotFoundException{
 		boolean aux=false;
-		List<prestamos> prestamosTemp = repository.findByFkEmpleadoPrestamo(idU);
+		Optional<prestamos> findPrestamo = repository.findByIdPrestamosEmpleados(prestamos.getIdPrestamosEmpleados());
 		
-		Optional<usuario> userEmpleado = repositoryUser.findByIdUsuario(idU); //buscar al usuario que envio los datos del front-end
-		if(userEmpleado.isPresent() && (prestamosTemp == null)) {//comparo si existe el prestamo 
-			usuario dataUser = userEmpleado.get();
-			if(dataUser.getRol() == 2) {//el rol=2 hace referencia al empleado
+		if(findPrestamo.isPresent()) {
+			System.out.println("idRepetido");
+			throw new RecordNotFoundException("Id repetido");
+		}
+		
+		List<prestamos> prestamosTemp = repository.findByFkEmpleadoPrestamo(prestamos.getFkEmpleadoPrestamo());
+		
+		Optional<usuario> userEmpleado = repositoryUser.findByIdUsuario(prestamos.getFkEmpleadoPrestamo()); //buscar al usuario que envio los datos del front-end
+		
+		if(userEmpleado.isPresent() ) {//comparo si existe el usuario solicitante
+			usuario dateUser = userEmpleado.get();
+			if(dateUser.getRol() == 2) {//el rol=2 hace referencia al empleado
 				for(prestamos p:prestamosTemp) {
-					if((p.getEstadoPrestamo() == true) || (p.getMontoPrestamo() >= (dataUser.getSueldo()))) {//comprobando un prestamo activ y si el prestamo no supera al sueldo
+					if((p.getEstadoPrestamo() == true) ) {//comprobando un prestamo activ y si el prestamo no supera al sueldo
 						aux=true;
+						System.out.println(aux);
 					}
 				}
 				if(aux == false){
-					return repository.save(prestamos);
+					if(prestamos.getMontoPrestamo() <= (dateUser.getSueldo())) {
+						System.out.println("guardado");
+						return repository.save(prestamos);
+					}else {
+						System.out.println("el sueldo es menor al prestamo");
+						throw new RecordNotFoundException("Su sueldo es menor al valor del prestamo!");
+					}
 				}else {
-					throw new RecordNotFoundException("Monto excedido a su sueldo!");
+					System.out.println("pagar prestamo existente");
+					throw new RecordNotFoundException("page su ultimo prestamo!");
 				}
 			}else {
+					System.out.println("tipo de usuario no correcto");
 					throw new RecordNotFoundException("Tipo de usuario no valido");
 				}
 		}else {
+			System.out.println("no existe usuario");
 			throw new RecordNotFoundException("No existe el usuario o prestamo activo ");
 		}
-		
 	}
 	
 	public prestamos updatePrestamo(prestamos prestamos) throws RecordNotFoundException {
@@ -112,7 +129,7 @@ public class prestamosService{
 				prestamo.setMontoPrestamo(prestamo.getMontoPrestamo()-cantidad);//disminuyo la deuda al pagar
 				prestamo.setEstadoPrestamo(false);
 				prestamo.setSituacionPrestamo("Cancelado");
-				prestamo.setFechaFinPrestamo(LocalDate.now());
+				
 			}else {
 				if(cantidad < prestamo.getMontoPrestamo()) {
 					prestamo.setMontoPrestamo(prestamo.getMontoPrestamo()-cantidad);//disminuyo la deuda al pagar

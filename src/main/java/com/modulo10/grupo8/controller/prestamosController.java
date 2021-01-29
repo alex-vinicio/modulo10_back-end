@@ -44,13 +44,13 @@ public class prestamosController {
 		return new ResponseEntity<prestamos>(entity, new HttpHeaders(), HttpStatus.OK);
 	}
 
-	@PostMapping("/prestamo/solicitarPrestamo/{idUsuario}") //
-	public ResponseEntity<prestamos> createPrestamo(@RequestParam("prestamos") String s, @RequestParam("idUsuario") String idU) throws JsonMappingException, JsonProcessingException, RecordNotFoundException{
+	@PostMapping("/prestamo/solicitarPrestamo") //
+	public ResponseEntity<prestamos> createPrestamo(@RequestParam("prestamos") String s) throws JsonMappingException, JsonProcessingException, RecordNotFoundException{
 		
 		ObjectMapper om = new ObjectMapper();
 		prestamos usuarioServicio=om.readValue(s, prestamos[].class)[0];
 		
-		servicePrestamos.createPrestamo(usuarioServicio, idU); //envia el objeto prestamo y el idUsuario logeado del front-end
+		servicePrestamos.createPrestamo(usuarioServicio); //envia el objeto prestamo y el idUsuario logeado del front-end
 		return new ResponseEntity<prestamos>(usuarioServicio, new HttpHeaders(), HttpStatus.OK);
 	}
 
