@@ -32,28 +32,25 @@ public class prestamosController {
 	prestamosService servicePrestamos;
 	
 	
-	@GetMapping("/prestamos")
+	@GetMapping("/prestamos")//lista todos los prestamos
 	public ResponseEntity<List<prestamos>> getAll() {
 		List<prestamos> list = servicePrestamos.getAll();
 		return new ResponseEntity<List<prestamos>>(list, new HttpHeaders(), HttpStatus.OK);
 	}
-	@GetMapping("/prueba")
-	public String getPrueba() {
-		return "hola esto es una prueba!";
-	}
-	@GetMapping("/prestamo/{id}")
+	
+	@GetMapping("/prestamo/{id}") //busca un prestamo segun su id
 	public ResponseEntity<prestamos> getPrestamoById(@PathVariable("id") String id) throws RecordNotFoundException {
 		prestamos entity = servicePrestamos.findById(id);
 		return new ResponseEntity<prestamos>(entity, new HttpHeaders(), HttpStatus.OK);
 	}
 
-	@PostMapping("/prestamo/create")
-	public ResponseEntity<prestamos> createPrestamo(@RequestParam("prestamos") String s) throws JsonMappingException, JsonProcessingException, RecordNotFoundException{
+	@PostMapping("/prestamo/solicitarPrestamo/{idUsuario}") //
+	public ResponseEntity<prestamos> createPrestamo(@RequestParam("prestamos") String s, @RequestParam("idUsuario") String idU) throws JsonMappingException, JsonProcessingException, RecordNotFoundException{
 		
 		ObjectMapper om = new ObjectMapper();
 		prestamos usuarioServicio=om.readValue(s, prestamos[].class)[0];
 		
-		servicePrestamos.createPrestamo(usuarioServicio);
+		servicePrestamos.createPrestamo(usuarioServicio, idU); //envia el objeto prestamo y el idUsuario logeado del front-end
 		return new ResponseEntity<prestamos>(usuarioServicio, new HttpHeaders(), HttpStatus.OK);
 	}
 
@@ -74,24 +71,19 @@ public class prestamosController {
 	}
 	
 	
-	@PutMapping("/prestamo/aprobacion/{id}/{aporbacion}")
-	public ResponseEntity<Boolean> aprobracionPrestamo(@PathVariable("id") String id, @PathVariable("aprobacion") Boolean check) throws RecordNotFoundException, JsonMappingException, JsonProcessingException{
-		
-		prestamos entity = servicePrestamos.findById(id);
-		if(entity == null){
-			throw new RecordNotFoundException("Id del prestamo repetido");
-		}else {
-			if(entity.getEstadoPrestamo() == true) {
-			Boolean value = servicePrestamos.aprobacionPrestamo(entity,check);
-			return new ResponseEntity<Boolean>(value, new HttpHeaders(), HttpStatus.OK);
+	@PutMapping("/prestamo/aprobacion/{idPrestamo}/{aporbacion}/{idUsuario}")//controller para aprobar un prestamo, este solo es llamado por el usuario admin
+	public boolean aprobracionPrestamo(@PathVariable("idPrestamo") String idP, @PathVariable("aprobacion") Boolean check,@PathVariable("idUsuario") String idU) throws RecordNotFoundException, JsonMappingException, JsonProcessingException{
+		boolean value = servicePrestamos.aprobacionPrestamo(idP,check,idU);	
+		if(value == true) {
+				return value;
 			}else {
 				throw new RecordNotFoundException("Cancele el prestamo acual");
-			}
 		}
 	}
-	@GetMapping("/prestamosPorUsuario/{id}")
-	public ResponseEntity<List<prestamos>> getForUser(@PathVariable("id") String id) {
-		List<prestamos> list = servicePrestamos.findByUsuario(id);
-		return new ResponseEntity<List<prestamos>>(list, new HttpHeaders(), HttpStatus.OK);
+
+	@GetMapping("/prestamos/pago/{idP}/{cantidad}/{idU}")//
+	public ResponseEntity<prestamos> getForUser(@PathVariable("idP") String idP,@PathVariable("cantidad") float cantidad,@PathVariable("idU") String idU) throws RecordNotFoundException {
+		prestamos objPrestamo = servicePrestamos.pagoPrestamo(idP,cantidad,idU);
+		return new ResponseEntity<prestamos>(objPrestamo, new HttpHeaders(), HttpStatus.OK);
 	}
 }				

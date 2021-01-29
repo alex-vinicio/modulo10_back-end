@@ -14,7 +14,7 @@ import com.modulo10.grupo8.entities.hojasDeCobro;
 public interface hojasDeCobroRepository extends MongoRepository<hojasDeCobro, String> {
 
   public Optional<hojasDeCobro> findByIdHojaDeCobro(@Param("idHojaDeCobro") String idHojaDeCobro);
-  public Optional<hojasDeCobro> findByIdUsuario(@Param("fkCiUsuario") String fkCiUsuario);
+  public Optional<hojasDeCobro> findByFkCiUsuario(@Param("fkCiUsuario") String fkCiUsuario);
   public List<hojasDeCobro> findBySector(@Param("sector") String sector);
   
   @Transactional

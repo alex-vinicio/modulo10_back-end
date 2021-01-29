@@ -1,5 +1,8 @@
 package com.modulo10.grupo8.entities;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -8,44 +11,52 @@ public class prestamos {
 	
 	public String idPrestamosEmpleados;
   
-  public String fkCiEmpleado;
   public String fkEmpleadoPrestamo;
-  public String fechaInicioPrestamo;
-  public String fechaFinPrestamo;
+  public String fkCiEmpleadoAdmin;
+  public Date fechaInicioPrestamo;
+  public LocalDate fechaFinPrestamo;
   public Boolean estadoPrestamo;
   public float montoPrestamo;
   public int mesesPago;
+  public String situacionPrestamo;
   
 	
+	public String getSituacionPrestamo() {
+		return situacionPrestamo;
+	}
+	public void setSituacionPrestamo(String situacionPrestamo) {
+		this.situacionPrestamo = situacionPrestamo;
+	}
 	public String getIdPrestamosEmpleados() {
 		return idPrestamosEmpleados;
 	}
 	public void setIdPrestamosEmpleados(String idPrestamosEmpleados) {
 		this.idPrestamosEmpleados = idPrestamosEmpleados;
 	}
-	public String getFkCiEmpleado() {
-		return fkCiEmpleado;
-	}
-	public void setFkCiEmpleado(String fkCiEmpleado) {
-		this.fkCiEmpleado = fkCiEmpleado;
-	}
+
 	public String getFkEmpleadoPrestamo() {
 		return fkEmpleadoPrestamo;
 	}
 	public void setFkEmpleadoPrestamo(String fkEmpleadoPrestamo) {
 		this.fkEmpleadoPrestamo = fkEmpleadoPrestamo;
 	}
-	public String getFechaInicioPrestamo() {
+	public String getFkCiEmpleadoAdmin() {
+		return fkCiEmpleadoAdmin;
+	}
+	public void setFkCiEmpleadoAdmin(String fkCiEmpleadoAdmin) {
+		this.fkCiEmpleadoAdmin = fkCiEmpleadoAdmin;
+	}
+	public Date getFechaInicioPrestamo() {
 		return fechaInicioPrestamo;
 	}
-	public void setFechaInicioPrestamo(String fechaInicioPrestamo) {
+	public void setFechaInicioPrestamo(Date fechaInicioPrestamo) {
 		this.fechaInicioPrestamo = fechaInicioPrestamo;
 	}
-	public String getFechaFinPrestamo() {
+	public LocalDate getFechaFinPrestamo() {
 		return fechaFinPrestamo;
 	}
-	public void setFechaFinPrestamo(String fechaFinPrestamo) {
-		this.fechaFinPrestamo = fechaFinPrestamo;
+	public void setFechaFinPrestamo(LocalDate localDate) {
+		this.fechaFinPrestamo = localDate;
 	}
 	public Boolean getEstadoPrestamo() {
 		return estadoPrestamo;

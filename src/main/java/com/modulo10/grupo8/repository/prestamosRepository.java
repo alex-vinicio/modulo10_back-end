@@ -16,8 +16,8 @@ public interface prestamosRepository extends MongoRepository<prestamos, String> 
 
 	public Optional<prestamos> findByIdPrestamosEmpleados(@Param("idPrestamosEmpleados") String idPrestamosEmpleados);
 	  public prestamos findByMontoPrestamo(@Param("montoPrestamo") float montoPrestamoEmpleado);
-	  
-	  public List<prestamos> findByFkEmpleadoPrestamo(@Param("FkEmpleadoPrestamo") String idUP);
+
+	  public List<prestamos> findByFkEmpleadoPrestamo(@Param("fkEmpleadoPrestamo") String idEA);
 	  
 	  @Transactional
 	  void deleteByIdPrestamosEmpleados(@Param("idPrestamosEmpleados") String id);

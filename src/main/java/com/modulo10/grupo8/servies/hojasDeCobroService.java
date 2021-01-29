@@ -10,11 +10,15 @@ import org.springframework.stereotype.Service;
 import com.modulo10.grupo8.RecordNotFoundException;
 import com.modulo10.grupo8.entities.hojasDeCobro;
 import com.modulo10.grupo8.repository.hojasDeCobroRepository;
+import com.modulo10.grupo8.repository.usuarioRepository;
 
 @Service
 public class hojasDeCobroService {
 	@Autowired
 	hojasDeCobroRepository repository;
+	
+	@Autowired
+	 usuarioRepository repositoryUser;
 	
 	public List<hojasDeCobro> getAll(){
 		List<hojasDeCobro> prestamosList = repository.findAll();
@@ -66,7 +70,7 @@ public class hojasDeCobroService {
 	}
 	
 	public void comprobarHojaDeCobroByIdUsuario(String id) throws RecordNotFoundException{
-		Optional<hojasDeCobro> prestamos = repository.findByIdUsuario(id);
+		Optional<hojasDeCobro> prestamos = repository.findByFkCiUsuario(id);
 		if(prestamos.isPresent()) {
 			throw new RecordNotFoundException("Prestamo ya existente");
 		} else {
