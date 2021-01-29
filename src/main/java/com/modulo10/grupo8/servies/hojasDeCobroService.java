@@ -64,4 +64,14 @@ public class hojasDeCobroService {
 		
        return repository.findBySector(valor);
 	}
+	
+	public void comprobarHojaDeCobroByIdUsuario(String id) throws RecordNotFoundException{
+		Optional<hojasDeCobro> prestamos = repository.findByIdUsuario(id);
+		if(prestamos.isPresent()) {
+			throw new RecordNotFoundException("Prestamo ya existente");
+		} else {
+			throw new RecordNotFoundException("Prestamo no encontrado");
+	}	
+	
+	}
 }

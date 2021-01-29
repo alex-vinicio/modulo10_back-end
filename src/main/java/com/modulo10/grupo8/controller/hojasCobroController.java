@@ -42,6 +42,14 @@ public class hojasCobroController {
 		hojasDeCobro entity = serviceHojaCobro.findById(id);
 		return new ResponseEntity<hojasDeCobro>(entity, new HttpHeaders(), HttpStatus.OK);
 	}
+	
+	@GetMapping("/hojasDeCobro/{fkCiUsuario}")
+	
+	public ResponseEntity<hojasDeCobro> getComprobacionId(@PathVariable("fkCiUsuario") String fkCiUsuario) throws RecordNotFoundException {
+			hojasDeCobro entity = serviceHojaCobro.findById(fkCiUsuario);
+			return new ResponseEntity<hojasDeCobro>(entity, new HttpHeaders(), HttpStatus.OK);
+	
+	}
 
 	@PostMapping("/hojasDeCobro/create")
 	public ResponseEntity<hojasDeCobro> createHojaDeCobro(@RequestParam("productosDadosDeBaja") String s) throws JsonMappingException, JsonProcessingException, RecordNotFoundException{
@@ -51,7 +59,9 @@ public class hojasCobroController {
 		
 		serviceHojaCobro.createHojaDeCobro(usuarioServicio);
 		return new ResponseEntity<hojasDeCobro>(usuarioServicio, new HttpHeaders(), HttpStatus.OK);
+		
 	}
+	
 
 	@PutMapping("/hojasDeCobro/update")
 	public ResponseEntity<hojasDeCobro> updateHojaDeCobro(@RequestParam("productosDadosDeBaja") String s) throws RecordNotFoundException, JsonMappingException, JsonProcessingException{
@@ -68,4 +78,6 @@ public class hojasCobroController {
 		serviceHojaCobro.deleteHojaDeCobroById(id);
 		return HttpStatus.OK;
 	}
+	
+	
 }
