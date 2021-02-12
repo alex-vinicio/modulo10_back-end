@@ -92,7 +92,7 @@ public class prestamosController {
 				Optional<usuario> userEmpleado = repositoryUser.findByIdUsuario(ci);
 				if(userEmpleado.isPresent() ) {//comparo si existe el usuario solicitante
 					usuario dateUser = userEmpleado.get();
-					if(dateUser.getRol() == 2) {
+					if(dateUser.getRol() != 0) {
 						return new ResponseEntity<usuario>(dateUser, new HttpHeaders(), HttpStatus.OK);
 					}else {
 						System.out.println("error 3");
