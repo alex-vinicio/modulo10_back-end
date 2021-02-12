@@ -1,6 +1,7 @@
 package com.modulo10.grupo8.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -21,6 +22,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.modulo10.grupo8.RecordNotFoundException;
 import com.modulo10.grupo8.entities.prestamos;
+import com.modulo10.grupo8.entities.usuario;
+import com.modulo10.grupo8.repository.usuarioRepository;
 import com.modulo10.grupo8.servies.prestamosService;
 
 
@@ -31,6 +34,8 @@ public class prestamosController {
 	@Autowired
 	prestamosService servicePrestamos;
 	
+	@Autowired
+	usuarioRepository repositoryUser;
 	
 	@GetMapping("/prestamos")//lista todos los prestamos
 	public ResponseEntity<List<prestamos>> getAll() {
@@ -81,6 +86,29 @@ public class prestamosController {
 		}
 	}
 
+	@GetMapping("/prestamo/login/{cedula}/{pwd}")//controller para aprobar un prestamo, este solo es llamado por el usuario admin
+	public ResponseEntity<usuario> loginU(@PathVariable("cedula") String ci, @PathVariable("pwd") String pass) throws RecordNotFoundException, JsonMappingException, JsonProcessingException{
+		if(ci != null && pass != null) {
+				Optional<usuario> userEmpleado = repositoryUser.findByIdUsuario(ci);
+				if(userEmpleado.isPresent() ) {//comparo si existe el usuario solicitante
+					usuario dateUser = userEmpleado.get();
+					if(dateUser.getRol() == 2) {
+						return new ResponseEntity<usuario>(dateUser, new HttpHeaders(), HttpStatus.OK);
+					}else {
+						System.out.println("error 3");
+						throw new RecordNotFoundException("Ron de usuario incorrecto");
+					}
+					
+				}else {
+					System.out.println("error 2");
+					throw new RecordNotFoundException("usuario no encontrado");
+				}
+			}else {
+				System.out.println("error 1");
+				throw new RecordNotFoundException("valores invalidos");
+		}
+	}
+	
 	@GetMapping("/prestamos/pago/{idP}/{cantidad}/{idU}")//
 	public ResponseEntity<prestamos> getForUser(@PathVariable("idP") String idP,@PathVariable("cantidad") float cantidad,@PathVariable("idU") String idU) throws RecordNotFoundException {
 		prestamos objPrestamo = servicePrestamos.pagoPrestamo(idP,cantidad,idU);

@@ -8,8 +8,15 @@ public class usuario {
 	public String idUsuario;
 	public String nombreUsuario;
 	public float sueldo;
+	public String contrasenia;
 	public int rol;
 	
+	public String getContrasenia() {
+		return contrasenia;
+	}
+	public void setContrasenia(String contrasenia) {
+		this.contrasenia = contrasenia;
+	}
 	public float getSueldo() {
 		return sueldo;
 	}
