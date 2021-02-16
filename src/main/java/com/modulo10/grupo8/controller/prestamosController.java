@@ -76,8 +76,8 @@ public class prestamosController {
 	}
 	
 	
-	@PutMapping("/prestamo/aprobacion/{idPrestamo}/{aporbacion}/{idUsuario}")//controller para aprobar un prestamo, este solo es llamado por el usuario admin
-	public boolean aprobracionPrestamo(@PathVariable("idPrestamo") String idP, @PathVariable("aprobacion") Boolean check,@PathVariable("idUsuario") String idU) throws RecordNotFoundException, JsonMappingException, JsonProcessingException{
+	@PutMapping("/prestamo/aprobacion/{idPrestamo}/{aprobacion}/{idUsuario}")//controller para aprobar un prestamo, este solo es llamado por el usuario admin
+	public boolean aprobracionPrestamo(@PathVariable("idPrestamo") String idP, @PathVariable("aprobacion") boolean check,@PathVariable("idUsuario") String idU) throws RecordNotFoundException, JsonMappingException, JsonProcessingException{
 		boolean value = servicePrestamos.aprobacionPrestamo(idP,check,idU);	
 		if(value == true) {
 				return value;

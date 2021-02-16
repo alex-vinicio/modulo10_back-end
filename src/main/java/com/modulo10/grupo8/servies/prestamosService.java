@@ -151,10 +151,16 @@ public class prestamosService{
 		if(check == true) {
 			Optional<usuario> userAdmin = repositoryUser.findByIdUsuario(idU);
 			usuario objeto =  userAdmin.get();
-			if(objeto != null || objeto.getRol() != 1) {//si el objeto esta vacio o no es admin
+			if(objeto == null) {
+				throw new RecordNotFoundException("El usuario es incorrecto");
+			}
+			
+			if(objeto.getRol() == 1) {//si el objeto esta vacio o no es admin
 				Optional<prestamos> aprobacionP = repository.findByIdPrestamosEmpleados(idP);
 				prestamos objetcP = aprobacionP.get();
+				
 				List<prestamos> listaP = repository.findByFkEmpleadoPrestamo(objetcP.getFkEmpleadoPrestamo());
+				
 				for(prestamos p:listaP) {
 					if(p.getEstadoPrestamo() == true)  {//comprobando si algun prestamo del solicitante esta activo
 						aux=true;
@@ -162,16 +168,21 @@ public class prestamosService{
 				}
 				if(aux == false) {
 					objetcP.setEstadoPrestamo(true);
+					objetcP.setFkCiEmpleadoAdmin(idU);
 					objetcP.setSituacionPrestamo("por cobrar");
+					repository.deleteByIdPrestamosEmpleados(objetcP.getIdPrestamosEmpleados());
 					repository.save(objetcP);
-					return true;
+					return true;	
 				}else {
+					System.out.println("El usuario aun tiene prestamo activo");
 					throw new RecordNotFoundException("El usuario aun tiene prestamo activo");
 				}
 			}else {
+				System.out.println("Usuario no permitido");
 				throw new RecordNotFoundException("Usuario no permitido");
 			}
 		}else {
+			System.out.println("Prestamos cancelado");
 			throw new RecordNotFoundException("Prestamos cancelado");
 		}	
 	}
