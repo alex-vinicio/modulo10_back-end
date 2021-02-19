@@ -92,9 +92,16 @@ public class prestamosService{
 	public prestamos updatePrestamo(prestamos prestamos) throws RecordNotFoundException {
 		Optional<prestamos> prestamosTemp = repository.findByIdPrestamosEmpleados(prestamos.getIdPrestamosEmpleados());
 		if(prestamosTemp.isPresent()){
-			prestamos.setEstadoPrestamo(false);
-			return repository.save(prestamos);
-		} else {
+			prestamos objetcP = prestamosTemp.get();
+			if(prestamos.getEstadoPrestamo() == false) {
+				prestamos.setEstadoPrestamo(false);
+				repository.deleteByIdPrestamosEmpleados(objetcP.getIdPrestamosEmpleados());
+				return repository.save(prestamos);
+			}else {
+				System.out.println("Prestamo ya por cobrar");
+				throw new RecordNotFoundException("Prestamo ya en ejecucion");
+			}
+		}else {
 			throw new RecordNotFoundException("Prestamo no encontrado");
 		}
 	}
