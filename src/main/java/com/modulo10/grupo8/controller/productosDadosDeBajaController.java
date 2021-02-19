@@ -20,6 +20,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.modulo10.grupo8.RecordNotFoundException;
+import com.modulo10.grupo8.entities.prestamos;
 import com.modulo10.grupo8.entities.productosDadosDeBaja;
 import com.modulo10.grupo8.servies.productosDadosDeBajaService;
 
@@ -69,4 +70,11 @@ public class productosDadosDeBajaController {
 		servicePrestamos.deleteProductosBajaById(id);
 		return HttpStatus.OK;
 	}
+	
+	@PutMapping("/productoBaja/deBaja/{idP}/{idU}")
+	public ResponseEntity<productosDadosDeBaja> getForUser(@PathVariable("idP") String idP,@PathVariable("idU") String idU) throws RecordNotFoundException {
+		productosDadosDeBaja objPrestamo = servicePrestamos.darDeBaja(idP,idU);
+		return new ResponseEntity<productosDadosDeBaja>(objPrestamo, new HttpHeaders(), HttpStatus.OK);
+	}
+	
 }

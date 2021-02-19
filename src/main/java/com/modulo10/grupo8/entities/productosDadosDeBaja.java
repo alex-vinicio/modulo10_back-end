@@ -12,7 +12,27 @@ public class productosDadosDeBaja {
 	  public String fkCiUsuario;
 	  public String nombreProductoDadoDeBaja;
 	  public String fechaProductoDadoDeBaja;
+	  public String accion;
+	  public boolean estadoP;
 	  
+	public String getFkCiUsuario() {
+		return fkCiUsuario;
+	}
+	public void setFkCiUsuario(String fkCiUsuario) {
+		this.fkCiUsuario = fkCiUsuario;
+	}
+	public String getAccion() {
+		return accion;
+	}
+	public void setAccion(String accion) {
+		this.accion = accion;
+	}
+	public boolean isEstadoP() {
+		return estadoP;
+	}
+	public void setEstadoP(boolean estadoP) {
+		this.estadoP = estadoP;
+	}
 	public String getIdProductoDadoDeBaja() {
 		return idProductoDadoDeBaja;
 	}

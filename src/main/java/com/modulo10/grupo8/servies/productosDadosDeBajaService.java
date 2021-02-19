@@ -1,6 +1,8 @@
 package com.modulo10.grupo8.servies;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,5 +65,32 @@ public class productosDadosDeBajaService {
 	public List<productosDadosDeBaja> findByFechaOperacion(String valor){
 		
        return repository.findByfechaProductoDadoDeBaja(valor);
+	}
+	public productosDadosDeBaja darDeBaja(String idP,String idU) {
+		Optional<productosDadosDeBaja> prestamosTemp = repository.findByIdProductoDadoDeBaja(idP);
+		
+		if(prestamosTemp.isPresent()) {
+			productosDadosDeBaja producto = prestamosTemp.get();
+			repository.deleteByIdProductoDadoDeBaja(idP);	
+			producto.setFkCiUsuario(idU);
+			producto.setCiUsuario(idU);
+			producto.setEstadoP(false);
+			producto.setAccion("De baja");
+			//generar fecha actual de operacion
+			Calendar fecha = new GregorianCalendar();
+			int año = fecha.get(Calendar.YEAR);
+	        int mes = fecha.get(Calendar.MONTH);
+	        int dia = fecha.get(Calendar.DAY_OF_MONTH);
+	        int hora = fecha.get(Calendar.HOUR_OF_DAY);
+	        int minuto = fecha.get(Calendar.MINUTE);
+	        int segundo = fecha.get(Calendar.SECOND);
+	        
+	        String fechaOp = "" + dia + "/" + (mes+1) + "/" + año+" : "+hora+":"+minuto+":"+segundo;
+			producto.setFechaProductoDadoDeBaja(fechaOp);
+			return repository.save(producto);
+		} else {
+			throw new RecordNotFoundException("Record does not exist for the given Id");
+		}
+		
 	}
 }
